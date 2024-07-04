@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map with Markers</title>
+
+    <!-- Bootstrap CSS and JS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -18,14 +20,16 @@
         crossorigin="anonymous"></script>
 
     <!-- Imports -->
-    <link rel="stylesheet" href="style.css">
-    <script src="index.js"></script>
+    <link rel="stylesheet" href="styles/map.css">
+    <script src="scripts/map.js"></script>
 
 </head>
 
 
 <body>
-    <div class="mt-5 w-100">
+    <div class="mt-5">
+
+        <!-- SVG Map -->
         <?xml version="1.0"?>
         <svg id="allSvg" baseprofile="tiny" fill="#ADD8E6" stroke="#51abd7" stroke-linecap="round"
             stroke-linejoin="round" version="1.2" viewbox="0 0 2000 857" xmlns="http://www.w3.org/2000/svg">
@@ -1582,35 +1586,10 @@
             <circle cx="1798.2" cy="719.3" id="2">
             </circle>
         </svg>
-        <div id="countryPopup" style="display: none;">Country Name</div>
+
+        <!-- Dislay Country Name -->
+        <div id="countryPopup" style="display: none;"></div>
     </div>
 </body>
-
-<script>
-    //Country name on Mouse hover
-    document.querySelectorAll('svg path').forEach(path => {
-        path.addEventListener('mouseenter', function (e) {
-            const countryName = path.id.replace(/-/g, ' ');
-            const popup = document.getElementById('countryPopup');
-            popup.innerText = countryName; // Set the country name in the popup
-            popup.style.display = 'block'; // Show the popup
-            updatePopupPosition(e); // Position the popup at the mouse location
-        });
-
-        path.addEventListener('mousemove', updatePopupPosition); // Update position with mouse movement
-
-        path.addEventListener('mouseleave', function () {
-            document.getElementById('countryPopup').style.display = 'none'; // Hide the popup
-        });
-    });
-
-    function updatePopupPosition(e) {
-        const popup = document.getElementById('countryPopup');
-        const x = e.clientX;
-        const y = e.clientY;
-        popup.style.left = `${x + 10}px`; // Offset by 10px to not overlap the mouse pointer
-        popup.style.top = `${y - 35}px`;
-    }
-</script>
 
 </html>
