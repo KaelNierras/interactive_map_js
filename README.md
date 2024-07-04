@@ -28,7 +28,7 @@ To get a local copy up and running, follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username/Interactive-Map-with-Markers.git
+   git clone https://github.com/KaelNierras/Interactive-Map-with-Markers.git
    ```
 2. Open the `index.html` file in your web browser to view the application.
 
