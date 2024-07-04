@@ -34,7 +34,7 @@ To get a local copy up and running, follow these simple steps.
 
 ## Usage
 
-This project can serve as a foundation for developing interactive maps for various applications, such as tourism guides, educational tools, or any platform requiring visual representation of geographical data.
+This project can serve as a foundation for developing interactive maps for various applications platform requiring visual representation of geographical data.
 
 ## How to Contribute
 
