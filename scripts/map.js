@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         imageElement.setAttributeNS(
           "http://www.w3.org/1999/xlink",
           "href",
-          "assest/pin_img.png"
+          "images/pin_img.png"
         );
         imageElement.setAttribute("x", x - 15); // Adjust x to center the image, assuming image width is 30
         imageElement.setAttribute("y", y);
