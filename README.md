@@ -61,9 +61,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-Kyle Anthony F. Nierras - email@example.com
+Kyle Anthony F. Nierras - kyleanthony47@gmail.com
 
-Project Link: [https://github.com/your_username/Interactive-Map-with-Markers](https://github.com/your_username/Interactive-Map-with-Markers)
+Project Link: [https://github.com/KaelNierras/interactive_map_js]
 
 ---
 
