@@ -1,20 +1,59 @@
-
 const activeCountries = [
-  { name: "Japan", description: "Description for ATR", companyName: "ATR", path: "images/logo/ATR-logo.png" },
-  { name: "Nepal", description: "Description for Educating Nepal", companyName: "Educating Nepal", path: "images/logo/edu-nepal-logo.png" },
-  { name: "India", description: "Description for Wisflux", companyName: "Wisflux", path: "images/logo/wisflux-logo.png" },
-  { name: "Australia", description: "Description for ClouDesk", companyName: "ClouDesk", path: "images/logo/cloudesk-logo.png" },
-  { name: "Japan", description: "Description for NTT", companyName: "NTT", path: "images/logo/NTT-logo.png" },
-  { name: "United-States", description: "Description for USAid", companyName: "USAid", path: "images/logo/usaid-logo.png" },
-  { name: "Australia", description: "Description for Apnik", companyName: "Apnik", path: "images/logo/apnik-logo.png" },
-  { name: "United-Kingdom", description: "Description for Unconnected", companyName: "Unconnected", path: "images/logo/unconnected-logo.png" },
+  {
+    name: "Japan",
+    description: "Description for ATR",
+    companyName: "ATR",
+    path: "images/logo/ATR-logo.png",
+  },
+  {
+    name: "Nepal",
+    description: "Description for Educating Nepal",
+    companyName: "Educating Nepal",
+    path: "images/logo/edu-nepal-logo.png",
+  },
+  {
+    name: "India",
+    description: "Description for Wisflux",
+    companyName: "Wisflux",
+    path: "images/logo/wisflux-logo.png",
+  },
+  {
+    name: "Australia",
+    description: "Description for ClouDesk",
+    companyName: "ClouDesk",
+    path: "images/logo/cloudesk-logo.png",
+  },
+  {
+    name: "Japan",
+    description: "Description for NTT",
+    companyName: "NTT",
+    path: "images/logo/NTT-logo.png",
+  },
+  {
+    name: "United-States",
+    description: "Description for USAid",
+    companyName: "USAid",
+    path: "images/logo/usaid-logo.png",
+  },
+  {
+    name: "Australia",
+    description: "Description for Apnik",
+    companyName: "Apnik",
+    path: "images/logo/apnik-logo.png",
+  },
+  {
+    name: "United-Kingdom",
+    description: "Description for Unconnected",
+    companyName: "Unconnected",
+    path: "images/logo/unconnected-logo.png",
+  },
 ];
 
 //Name and Pin Image of Selected Countries
 document.addEventListener("DOMContentLoaded", function () {
   //Selected Active Country
   const fillColor = "#5893af";
-  
+
   activeCountries.forEach((countryName) => {
     // Select all paths for the country using class selector
     const paths = document.querySelectorAll(`svg path.${countryName.name}`);
@@ -102,56 +141,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Country name on Mouse hover
   document.querySelectorAll("svg path").forEach((path) => {
-      path.addEventListener("mouseenter", function (e) {
-        const countryName = path.id.replace(/-/g, " ");
-        // Find all companies in the activeCountries array that match the country
-        const countryImages = activeCountries.filter(
-          (country) => country.name.replace(/ /g, "-") === path.id
-        ).map(country => country.path || "images/no-image.png"); // Default image path if not found
-      
-        const popup = document.getElementById("countryPopup");
-        // Clear previous content
-        popup.innerHTML = '';
-  
-        // // Create and append a text element for the country name
-        // const nameElement = document.createElement('p');
-        // nameElement.textContent = countryName.replace(/-/g, " "); // Replace hyphens with spaces for display
-        // nameElement.style = "font-weight: bold; margin: 0; padding: 5px;"; // Apply your styling here
-        // popup.appendChild(nameElement);
-  
-        // Check if there are any images to display
-        if (countryImages.length > 0) {
-          // Create and append an img element for each image
-          countryImages.forEach(imagePath => {
-            const imgElement = document.createElement('img');
-            imgElement.src = imagePath;
-            imgElement.alt = countryName;
-            imgElement.style = "width: auto; height: 30px; margin-top: 5px;"; // Apply your styling here
-            popup.appendChild(imgElement);
-          });
+    path.addEventListener("mouseenter", function (e) {
+      const countryName = path.id.replace(/-/g, " ");
+      // Find all companies in the activeCountries array that match the country
+      const countryImages = activeCountries
+        .filter((country) => country.name.replace(/ /g, "-") === path.id)
+        .map((country) => country.path || "images/no-image.png"); // Default image path if not found
+
+      const popup = document.getElementById("countryPopup");
+      // Clear previous content
+      popup.innerHTML = "";
+
+      // // Create and append a text element for the country name
+      // const nameElement = document.createElement('p');
+      // nameElement.textContent = countryName.replace(/-/g, " "); // Replace hyphens with spaces for display
+      // nameElement.style = "font-weight: bold; margin: 0; padding: 5px;"; // Apply your styling here
+      // popup.appendChild(nameElement);
+
+      function updateImgStyle(imgElement) {
+        if (window.matchMedia("(max-width: 768px)").matches) {
+          // For viewports less than or equal to 768px wide
+          imgElement.style = "width: auto; height: 10px; margin-top: 3px;"; // Smaller size for mobile
         } else {
-          // Fallback content if no images are found
-          const imgElement = document.createElement('img');
-          imgElement.src = "images/no-image.png";
-          imgElement.alt = countryName;
-          imgElement.style = "width: auto; height: 30px; margin-top: 5px;"; // Apply your styling here
-          popup.appendChild(imgElement);
+          // For viewports larger than 768px
+          imgElement.style = "width: auto; height: 30px; margin-top: 5px;"; // Original size
         }
-      
-        popup.style.display = "flex"; // Use flexbox for the popup
-        popup.style.flexDirection = "column"; // Stack images vertically
-        popup.style.justifyContent = "center"; // Center horizontally
-        popup.style.alignItems = "center"; // Center vertically
-        popup.style.height = "auto"; // Adjust height based on content
-        updatePopupPosition(e); // Position the popup at the mouse location
-      });
-  
-      path.addEventListener("mousemove", updatePopupPosition); // Update position with mouse movement
-  
-      path.addEventListener("mouseleave", function () {
-        document.getElementById("countryPopup").style.display = "none"; // Hide the popup
-      });
+      }
+
+      // Check if there are any images to display
+      if (countryImages.length > 0) {
+        // Create and append an img element for each image
+        countryImages.forEach((imagePath) => {
+          const imgElement = document.createElement("img");
+          imgElement.src = imagePath;
+          imgElement.alt = countryName;
+          updateImgStyle(imgElement);
+          popup.appendChild(imgElement);
+        });
+      } else {
+        // Fallback content if no images are found
+        const imgElement = document.createElement("img");
+        imgElement.src = "images/no-image.png";
+        imgElement.alt = countryName;
+        updateImgStyle(imgElement); // Apply your styling here
+        popup.appendChild(imgElement);
+      }
+      // Listen for changes in viewport size and update the style
+      window.addEventListener("resize", () => updateImgStyle(imgElement));
+
+      popup.style.display = "flex"; // Use flexbox for the popup
+      popup.style.flexDirection = "column"; // Stack images vertically
+      popup.style.justifyContent = "center"; // Center horizontally
+      popup.style.alignItems = "center"; // Center vertically
+      popup.style.height = "auto"; // Adjust height based on content
+      updatePopupPosition(e); // Position the popup at the mouse location
     });
+
+    path.addEventListener("mousemove", updatePopupPosition); // Update position with mouse movement
+
+    path.addEventListener("mouseleave", function () {
+      document.getElementById("countryPopup").style.display = "none"; // Hide the popup
+    });
+  });
 
   function updatePopupPosition(e) {
     const popup = document.getElementById("countryPopup");
