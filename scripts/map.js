@@ -1,11 +1,13 @@
+
 const activeCountries = [
-  { name: "Philippines", description: "Description for Philippines", companyName: "Company in Philippines" },
-  { name: "Canada", description: "Description for Canada", companyName: "Company in Canada" },
-  { name: "Spain", description: "Description for Spain", companyName: "Company in Spain" },
-  { name: "Australia", description: "Description for Australia", companyName: "Company in Australia" },
-  { name: "Russia", description: "Description for Russia", companyName: "Company in Russia" },
-  { name: "Morocco", description: "Description for Morocco", companyName: "Company in Morocco" },
-  { name: "Madagascar", description: "Description for Madagascar", companyName: "Company in Madagascar" },
+  { name: "Japan", description: "Description for ATR", companyName: "ATR", path: "images/logo/ATR-logo.png" },
+  { name: "Nepal", description: "Description for Educating Nepal", companyName: "Educating Nepal", path: "images/logo/edu-nepal-logo.png" },
+  { name: "India", description: "Description for Wisflux", companyName: "Wisflux", path: "images/logo/wisflux-logo.png" },
+  { name: "Australia", description: "Description for ClouDesk", companyName: "ClouDesk", path: "images/logo/cloudesk-logo.png" },
+  { name: "Japan", description: "Description for NTT", companyName: "NTT", path: "images/logo/NTT-logo.png" },
+  { name: "United-States", description: "Description for USAid", companyName: "USAid", path: "images/logo/usaid-logo.png" },
+  { name: "Australia", description: "Description for Apnik", companyName: "Apnik", path: "images/logo/apnik-logo.png" },
+  { name: "United-Kingdom", description: "Description for Unconnected", companyName: "Unconnected", path: "images/logo/unconnected-logo.png" },
 ];
 
 //Name and Pin Image of Selected Countries
@@ -28,9 +30,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Adjust y position for the text
         y -= 110;
 
+        const formattedCountryName = countryName.name.replace(/-/g, " ");
+
         // Estimate the size of the background based on the text length
         const padding = 10; // Padding around the text
-        const textLength = countryName.companyName.length;
+        const textLength = formattedCountryName.length;
         const fontSize = 16; // Assuming a font size of 16px for the text
         const rectWidth = textLength * fontSize * 0.6; // Estimate width based on text length and font size
         const rectHeight = fontSize * 1.5; // Height based on font size
@@ -66,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         textElement.setAttribute("dominant-baseline", "central"); // Center the text vertically
         textElement.setAttribute("stroke", "#397796"); // Set outline color
         textElement.setAttribute("stroke-width", "1"); // Set outline width
-        textElement.textContent = countryName.companyName; // Set the country name
+        textElement.textContent = formattedCountryName; // Set the country name
 
         // Append the text element to the SVG
         path.parentNode.appendChild(textElement);
@@ -97,25 +101,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Country name on Mouse hover
   document.querySelectorAll("svg path").forEach((path) => {
-    path.addEventListener("mouseenter", function (e) {
-      const countryName = path.id.replace(/-/g, " ");
-      const countryDescription =
-        activeCountries.find(
+      path.addEventListener("mouseenter", function (e) {
+        const countryName = path.id.replace(/-/g, " ");
+        // Find all companies in the activeCountries array that match the country
+        const countryImages = activeCountries.filter(
           (country) => country.name.replace(/ /g, "-") === path.id
-        )?.description || "No description available";
-      const popupText = countryName + ": " + countryDescription; // Concatenation with description
-      const popup = document.getElementById("countryPopup");
-      popup.innerText = popupText; // Set the country name and description in the popup
-      popup.style.display = "block"; // Show the popup
-      updatePopupPosition(e); // Position the popup at the mouse location
+        ).map(country => country.path || "images/no-image.png"); // Default image path if not found
+      
+        const popup = document.getElementById("countryPopup");
+        // Clear previous content
+        popup.innerHTML = '';
+  
+        // // Create and append a text element for the country name
+        // const nameElement = document.createElement('p');
+        // nameElement.textContent = countryName.replace(/-/g, " "); // Replace hyphens with spaces for display
+        // nameElement.style = "font-weight: bold; margin: 0; padding: 5px;"; // Apply your styling here
+        // popup.appendChild(nameElement);
+  
+        // Check if there are any images to display
+        if (countryImages.length > 0) {
+          // Create and append an img element for each image
+          countryImages.forEach(imagePath => {
+            const imgElement = document.createElement('img');
+            imgElement.src = imagePath;
+            imgElement.alt = countryName;
+            imgElement.style = "width: auto; height: 30px; margin-top: 5px;"; // Apply your styling here
+            popup.appendChild(imgElement);
+          });
+        } else {
+          // Fallback content if no images are found
+          const imgElement = document.createElement('img');
+          imgElement.src = "images/no-image.png";
+          imgElement.alt = countryName;
+          imgElement.style = "width: auto; height: 30px; margin-top: 5px;"; // Apply your styling here
+          popup.appendChild(imgElement);
+        }
+      
+        popup.style.display = "flex"; // Use flexbox for the popup
+        popup.style.flexDirection = "column"; // Stack images vertically
+        popup.style.justifyContent = "center"; // Center horizontally
+        popup.style.alignItems = "center"; // Center vertically
+        popup.style.height = "auto"; // Adjust height based on content
+        updatePopupPosition(e); // Position the popup at the mouse location
+      });
+  
+      path.addEventListener("mousemove", updatePopupPosition); // Update position with mouse movement
+  
+      path.addEventListener("mouseleave", function () {
+        document.getElementById("countryPopup").style.display = "none"; // Hide the popup
+      });
     });
-
-    path.addEventListener("mousemove", updatePopupPosition); // Update position with mouse movement
-
-    path.addEventListener("mouseleave", function () {
-      document.getElementById("countryPopup").style.display = "none"; // Hide the popup
-    });
-  });
 
   function updatePopupPosition(e) {
     const popup = document.getElementById("countryPopup");

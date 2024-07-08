@@ -7,10 +7,14 @@ body {
 #countryPopup {
     position: absolute;
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     border: 1px solid #ddd;
     padding: 5px;
     z-index: 1000;
+    height: auto;
     pointer-events: none;
     /* Ignore pointer events */
     border-radius: 5px;
@@ -22,6 +26,19 @@ svg path {
     cursor: pointer;
 }
 
+.responsive-img {
+  max-width: 100px; /* Make the image responsive */
+  height: auto; /* Maintain aspect ratio */
+}
+
+@media (max-width: 600px) { /* Example breakpoint for mobile devices */
+  .responsive-img {
+    max-width: 50%; /* Adjust size for smaller screens */
+  }
+}
+
 svg path:hover {
     fill: #51abd7;
 }
+
+
