@@ -1,11 +1,11 @@
 const activeCountries = [
-  "Philippines",
-  "Canada",
-  "Spain",
-  "Australia",
-  "Russia",
-  "Morocco",
-  "Madagascar",
+  { name: "Philippines", description: "Description for Philippines" },
+  { name: "Canada", description: "Description for Canada" },
+  { name: "Spain", description: "Description for Spain" },
+  { name: "Australia", description: "Description for Australia" },
+  { name: "Russia", description: "Description for Russia" },
+  { name: "Morocco", description: "Description for Morocco" },
+  { name: "Madagascar", description: "Description for Madagascar" },
 ];
 
 //Name and Pin Image of Selected Countries
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const fillColor = "#51abd7";
   activeCountries.forEach((countryName) => {
     // Select all paths for the country using class selector
-    const paths = document.querySelectorAll(`svg path.${countryName}`);
+    const paths = document.querySelectorAll(`svg path.${countryName.name}`);
     paths.forEach((path) => {
       // Fill each country path
       path.setAttribute("fill", fillColor);
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Estimate the size of the background based on the text length
         const padding = 10; // Padding around the text
-        const textLength = countryName.length;
+        const textLength = countryName.name.length;
         const fontSize = 16; // Assuming a font size of 16px for the text
         const rectWidth = textLength * fontSize * 0.6; // Estimate width based on text length and font size
         const rectHeight = fontSize * 1.5; // Height based on font size
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         textElement.setAttribute("dominant-baseline", "central"); // Center the text vertically
         textElement.setAttribute("stroke", "#397796"); // Set outline color
         textElement.setAttribute("stroke-width", "1"); // Set outline width
-        textElement.textContent = countryName; // Set the country name
+        textElement.textContent = countryName.name; // Set the country name
 
         // Append the text element to the SVG
         path.parentNode.appendChild(textElement);
@@ -99,8 +99,13 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("svg path").forEach((path) => {
     path.addEventListener("mouseenter", function (e) {
       const countryName = path.id.replace(/-/g, " ");
+      const countryDescription =
+        activeCountries.find(
+          (country) => country.name.replace(/ /g, "-") === path.id
+        )?.description || "No description available";
+      const popupText = countryName + ": " + countryDescription; // Concatenation with description
       const popup = document.getElementById("countryPopup");
-      popup.innerText = countryName; // Set the country name in the popup
+      popup.innerText = popupText; // Set the country name and description in the popup
       popup.style.display = "block"; // Show the popup
       updatePopupPosition(e); // Position the popup at the mouse location
     });
