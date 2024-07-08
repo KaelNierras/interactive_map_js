@@ -14,6 +14,7 @@ const activeCountries = [
 document.addEventListener("DOMContentLoaded", function () {
   //Selected Active Country
   const fillColor = "#5893af";
+  
   activeCountries.forEach((countryName) => {
     // Select all paths for the country using class selector
     const paths = document.querySelectorAll(`svg path.${countryName.name}`);
