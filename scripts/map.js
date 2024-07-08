@@ -1,11 +1,11 @@
 const activeCountries = [
-  { name: "Philippines", description: "Description for Philippines" },
-  { name: "Canada", description: "Description for Canada" },
-  { name: "Spain", description: "Description for Spain" },
-  { name: "Australia", description: "Description for Australia" },
-  { name: "Russia", description: "Description for Russia" },
-  { name: "Morocco", description: "Description for Morocco" },
-  { name: "Madagascar", description: "Description for Madagascar" },
+  { name: "Philippines", description: "Description for Philippines", companyName: "Company in Philippines" },
+  { name: "Canada", description: "Description for Canada", companyName: "Company in Canada" },
+  { name: "Spain", description: "Description for Spain", companyName: "Company in Spain" },
+  { name: "Australia", description: "Description for Australia", companyName: "Company in Australia" },
+  { name: "Russia", description: "Description for Russia", companyName: "Company in Russia" },
+  { name: "Morocco", description: "Description for Morocco", companyName: "Company in Morocco" },
+  { name: "Madagascar", description: "Description for Madagascar", companyName: "Company in Madagascar" },
 ];
 
 //Name and Pin Image of Selected Countries
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Estimate the size of the background based on the text length
         const padding = 10; // Padding around the text
-        const textLength = countryName.name.length;
+        const textLength = countryName.companyName.length;
         const fontSize = 16; // Assuming a font size of 16px for the text
         const rectWidth = textLength * fontSize * 0.6; // Estimate width based on text length and font size
         const rectHeight = fontSize * 1.5; // Height based on font size
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         textElement.setAttribute("dominant-baseline", "central"); // Center the text vertically
         textElement.setAttribute("stroke", "#397796"); // Set outline color
         textElement.setAttribute("stroke-width", "1"); // Set outline width
-        textElement.textContent = countryName.name; // Set the country name
+        textElement.textContent = countryName.companyName; // Set the country name
 
         // Append the text element to the SVG
         path.parentNode.appendChild(textElement);
